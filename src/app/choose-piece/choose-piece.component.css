@@ -1,0 +1,20 @@
+.big-btn {
+    width: 100px;
+    height: 100px;
+    font-size: 50px;
+}
+
+.options-body {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.button-spacing {
+    display: flex;
+    justify-content: space-around;
+}
+
+.active {
+    border: 3px solid #3333cc;
+}
