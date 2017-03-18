@@ -1,14 +1,14 @@
-<form class="options-body row" [formGroup]="optionsForm" (submit)="submitOptions(optionsForm)" novalidate>
+<form class="options-body row" [formGroup]="optionsForm" (submit)="submitOptions(optionsForm.value)" novalidate>
 
   <div class="col-12">
     <p class="centered">Choose your piece</p>
 
     <div class="button-spacing" data-toggle="buttons">
-      <label class="btn btn-warning big-btn">
-        <input type="radio" id="circle" name="marker" formControlName="marker" value="o"> O
+      <label class="btn btn-warning big-btn" (click)="toggleMarker('o')">
+        <input type="radio"> O
       </label>
-      <label class="btn btn-warning big-btn">
-        <input type="radio" id="cross" name="marker" formControlName="marker" value="x"> X
+      <label class="btn btn-warning big-btn" (click)="toggleMarker('x')">
+        <input type="radio"> X
       </label>
     </div>
   </div>
@@ -17,18 +17,18 @@
     <p class="centered">How many players?</p>
 
     <div class="button-spacing" data-toggle="buttons">
-      <label class="btn btn-info big-btn">
-        <input type="radio" [name]="players" formControlName="players" id="one-pl" value="1" checked> 1
+      <label class="btn btn-info big-btn" (click)="togglePlayers('1')"> 
+        <input type="radio" > 1
       </label>
-      <label class="btn btn-info big-btn">
-        <input type="radio" [name]="players" formControlName="players" id="two-pl" value="2"> 2
+      <label class="btn btn-info big-btn" (click)="togglePlayers('2')"> 
+        <input type="radio" > 2
       </label>
     </div>
 
   </div>
 
   <div class=" col-12 centered">
-    <button [disabled]="optionsForm.valid" class="btn btn-success" type="submit"> Play! </button>
+    <button [disabled]="!optionsForm.valid" class="btn btn-success" type="submit"> Play! </button>
   </div>
 
 

@@ -1,0 +1,13 @@
+.board {
+    background-color: white;
+    height: 500px;
+    width: 300px;
+}
+
+.full-height {
+    height: 26.7%;
+}
+
+.border {
+    border: 1px solid black;
+}
