@@ -1,3 +1,4 @@
+import { AppService } from './../app.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -11,7 +12,8 @@ export class ChoosePieceComponent implements OnInit {
 
   optionsForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router) { }
+  constructor(private fb: FormBuilder, private router: Router
+  , private service: AppService) { }
 
   ngOnInit() {
 
@@ -30,9 +32,10 @@ export class ChoosePieceComponent implements OnInit {
     this.optionsForm.controls['players'].setValue(value);
   }
 
-  submitOptions(form: FormGroup) {
+  submitOptions(form: any) {
+    this.service.setOptions(form);
     this.router.navigate(['game']);
-    console.log('submit!', form);
+    // console.log('submit!', form);
   }
 
 }
