@@ -4,9 +4,13 @@
     Turn : {{markerParse(currentTurn)}}
   </div>
 
-  <div class="row full-height" *ngFor="let bgRow of boardGame">
-    <div *ngFor="let element of bgRow" class="col-4 border">
-      {{element}}
+  <div>
+    Winner: {{markerParse(winner)}}
+  </div>
+
+  <div class="row full-height" *ngFor="let bgRow of boardGame; let x=index">
+    <div *ngFor="let element of bgRow; let y=index" class="col-4 border marker" (click)="placeMarker(x, y)">
+      {{markerParse(boardGame[x][y])}}
     </div>
   </div>
 
