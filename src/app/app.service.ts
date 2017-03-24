@@ -1,20 +1,25 @@
 import { FormGroup } from '@angular/forms';
 import { Injectable } from '@angular/core';
 
+export class PlayerOptions {
+    marker: number;
+    players: number;
+}
+
 @Injectable()
 export class AppService {
 
-    private optionsFormGroup: { marker: string, players: string };
+    private optionsFormGroup: PlayerOptions;
 
-    constructor() {}
+    constructor() { }
 
     setOptions(data: any) {
         this.optionsFormGroup = data;
         console.log(this.optionsFormGroup);
     }
 
-    getOptions() {
+    getOptions(): PlayerOptions {
         return this.optionsFormGroup;
     }
-    
+
 }

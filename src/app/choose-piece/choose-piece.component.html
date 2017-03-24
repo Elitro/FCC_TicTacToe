@@ -4,10 +4,10 @@
     <p class="centered">Choose your piece</p>
 
     <div class="button-spacing" data-toggle="buttons">
-      <label class="btn btn-warning big-btn" (click)="toggleMarker('o')">
+      <label class="btn btn-warning big-btn" (click)="toggleMarker(-1)">
         <input type="radio"> O
       </label>
-      <label class="btn btn-warning big-btn" (click)="toggleMarker('x')">
+      <label class="btn btn-warning big-btn" (click)="toggleMarker(1)">
         <input type="radio"> X
       </label>
     </div>
@@ -17,10 +17,10 @@
     <p class="centered">How many players?</p>
 
     <div class="button-spacing" data-toggle="buttons">
-      <label class="btn btn-info big-btn" (click)="togglePlayers('1')"> 
+      <label class="btn btn-info big-btn" (click)="togglePlayers(1)"> 
         <input type="radio" > 1
       </label>
-      <label class="btn btn-info big-btn" (click)="togglePlayers('2')"> 
+      <label class="btn btn-info big-btn" (click)="togglePlayers(2)"> 
         <input type="radio" > 2
       </label>
     </div>
