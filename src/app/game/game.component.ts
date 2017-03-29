@@ -1,5 +1,6 @@
 import { AppService, PlayerOptions } from './../app.service';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: 'app-game',
@@ -14,12 +15,12 @@ export class GameComponent implements OnInit {
 
   private boardGame: Array<Array<number>> = new Array<Array<number>>();
 
-  private boardSum = [[0, 0, 0], [0, 0, 0]];
+  private boardSum = [[0, 0, 0], [0, 0, 0], [0]];
 
   private nPlayers: number;
   private playerMarker: number;
 
-  constructor(private service: AppService) {
+  constructor(private service: AppService, private activatedRoute: ActivatedRoute) {
     this.currentTurn = Math.round(Math.random()) === 0 ? -1 : 1;
 
     this.boardGame = this.initAndClearBoard();
@@ -38,8 +39,13 @@ export class GameComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.nPlayers = this.service.getOptions().players;
-    this.playerMarker = this.service.getOptions().marker;
+
+    this.activatedRoute.params.subscribe(params => {
+      this.playerMarker = params['marker'];
+      this.nPlayers = params['players'];
+    }).unsubscribe();
+
+    // TODO: why the view does not parse the marker, when to call the bot to play
 
     if (this.nPlayers === 1 && this.currentTurn !== this.playerMarker) {
       this.botAi(this.currentTurn);
@@ -63,6 +69,7 @@ export class GameComponent implements OnInit {
 
       this.boardSum[0][x] += this.currentTurn;
       this.boardSum[1][y] += this.currentTurn;
+      this.boardSum[2][0] += 1;
 
       this.checkForWinCondition(x, y, this.currentTurn);
 
@@ -96,16 +103,27 @@ export class GameComponent implements OnInit {
   }
 
   botAi(currentTurn: number) {
-    // if (this.winner === 0 ) {
-    //   while (currentTurn === this.currentTurn) {
-    //     this.placeMarker(Math.round(Math.random()) * 2, Math.round(Math.random()) * 2);
-    //   }
-    // }
-    // if (this.nPlayers === 1) {
-    //     setTimeout(() => {
-    //       this.botAi(this.currentTurn);
-    //     }, 2000);
-    //   }
+    debugger;
+    if (this.winner === 0) {
+      this.ensureBotCanPlaceMarker(this.boardSum, this.boardGame);
+    }
+    if (this.nPlayers === 1) {
+      setTimeout(() => {
+        this.botAi(this.currentTurn);
+      }, 2000);
+    }
+  }
+
+  ensureBotCanPlaceMarker(boardSum: Array<any>, boardGame: Array<any>) {
+    if (boardSum[2][0] < 8) {
+      let x: number, y: number;
+      do {
+        x = Math.round(Math.random()) * 2;
+        y = Math.round(Math.random()) * 2;
+      } while ((boardGame[x][y]) !== 0);
+
+      this.placeMarker(x, y);
+    }
   }
 
 

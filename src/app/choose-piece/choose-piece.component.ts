@@ -13,7 +13,7 @@ export class ChoosePieceComponent implements OnInit {
   optionsForm: FormGroup;
 
   constructor(private fb: FormBuilder, private router: Router
-  , private service: AppService) { }
+    , private service: AppService) { }
 
   ngOnInit() {
 
@@ -33,9 +33,8 @@ export class ChoosePieceComponent implements OnInit {
   }
 
   submitOptions(form: any) {
-    this.service.setOptions(form);
-    this.router.navigate(['game']);
-    // console.log('submit!', form);
+    // this.service.setOptions(form);
+    this.router.navigate(['game/' + form.marker + '/' + form.players]);
   }
 
 }

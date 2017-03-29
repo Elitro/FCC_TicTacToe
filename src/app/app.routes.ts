@@ -5,5 +5,5 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
     { path: '', redirectTo: 'choose', pathMatch: 'full' },
     { path: 'choose', component: ChoosePieceComponent },
-    { path: 'game', component: GameComponent }
+    { path: 'game/:marker/:players', component: GameComponent }
 ];
