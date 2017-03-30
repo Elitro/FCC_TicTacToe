@@ -1,16 +1,16 @@
 <div class="board container-fluid">
 
   <div class="row">
-    <div class="col-4">
-      Turn : {{markerParse(currentTurn)}}
+    <div class="col-4 no-padding">
+      Turn: {{markerParse(currentTurn)}}
     </div>
 
-    <div class="col-4">
+    <div class="col-4 no-padding">
       Winner: {{markerParse(winner)}}
     </div>
 
-    <div class="col-4">
-      Player: {{markerParse(playerMarker)}} {{playerMarker}}
+    <div class="col-4 no-padding">
+      Player: {{markerParse(playerMarker)}}
     </div>
 
   </div>
@@ -18,7 +18,7 @@
 
 
   <div class="row full-height" *ngFor="let bgRow of boardGame; let x=index">
-    <div *ngFor="let element of bgRow; let y=index" class="col-4 border marker" (click)="placeMarker(x, y)">
+    <div *ngFor="let element of bgRow; let y=index" class="col-4 border marker" (click)="playerPlay(x, y)">
       {{markerParse(boardGame[x][y])}}
     </div>
   </div>

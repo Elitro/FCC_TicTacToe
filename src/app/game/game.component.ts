@@ -1,6 +1,6 @@
 import { AppService, PlayerOptions } from './../app.service';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-game',
@@ -41,15 +41,13 @@ export class GameComponent implements OnInit {
   ngOnInit() {
 
     this.activatedRoute.params.subscribe(params => {
-      this.playerMarker = params['marker'];
-      this.nPlayers = params['players'];
+      this.playerMarker = parseInt(params['marker']);
+      this.nPlayers = parseInt(params['players']);
     }).unsubscribe();
 
-    // TODO: why the view does not parse the marker, when to call the bot to play
+    // TODO: Infinite loop bug?
 
-    if (this.nPlayers === 1 && this.currentTurn !== this.playerMarker) {
-      this.botAi(this.currentTurn);
-    }
+    this.botAi(this.currentTurn, this.playerMarker);
   }
 
   markerParse(value: number): string {
@@ -61,6 +59,14 @@ export class GameComponent implements OnInit {
       default:
         return '';
     }
+  }
+
+  playerPlay(x: number, y: number) {
+    this.placeMarker(x, y);
+
+    this.botAi(this.currentTurn, this.playerMarker);
+
+
   }
 
   placeMarker(x: number, y: number) {
@@ -102,16 +108,15 @@ export class GameComponent implements OnInit {
     this.winner = 0;
   }
 
-  botAi(currentTurn: number) {
-    debugger;
-    if (this.winner === 0) {
+  botAi(currentTurn: number, playerMarker: number) {
+    if (this.nPlayers === 1 && currentTurn !== playerMarker && this.winner === 0) {
       this.ensureBotCanPlaceMarker(this.boardSum, this.boardGame);
     }
-    if (this.nPlayers === 1) {
-      setTimeout(() => {
-        this.botAi(this.currentTurn);
-      }, 2000);
-    }
+    // if (this.nPlayers === 1) {
+    //   setTimeout(() => {
+    //     this.botAi(this.currentTurn);
+    //   }, 2000);
+    // }
   }
 
   ensureBotCanPlaceMarker(boardSum: Array<any>, boardGame: Array<any>) {
